@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import AppContainer from './Navigation/AppNavigator';
+
 
 export default class App extends Component {
   render() {
-    return (
-      <View>
-        <Text>Nice nice</Text>
-      </View>
-    );
+    return <AppContainer />;
   }
-} 
+}

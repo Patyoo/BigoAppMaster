@@ -17,10 +17,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from './pages/HomeScreen';
-import DetailsScreen from './pages/DetailsScreen';
-import ProfileScreen from './pages/ProfileScreen';
-import SettingsScreen from './pages/SettingsScreen';
+import HomeScreen from './Components/HomeScreen';
+
+import LoginScreen from './Components/LoginScreen';
+import RegisterScreen from './Components/RegisterScreen';
+import StaticticsScreen from './Components/StatisticsScreen';
+import FriendsScreen from './Components/FriendsScreen';
+import AddFriendScreen from './Components/AddFriendScreen';
+import ActionBarImage from './Components/ImageHeader';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,6 +37,7 @@ function HomeStack() {
         headerStyle: {backgroundColor: '#42f44b'},
         headerTintColor: '#fff',
         headerTitleStyle: {fontWeight: 'bold'},
+        headerLeft: () => <ActionBarImage />,
       }}>
       <Stack.Screen
         name="Home"
@@ -40,37 +45,57 @@ function HomeStack() {
         options={{title: 'Home Page'}}
       />
       <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        options={{title: 'Details Page'}}
+        name="Login"
+        component={LoginScreen}
+        options={{title: 'Login Page'}}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{title: 'Register Page'}}
       />
     </Stack.Navigator>
   );
 }
 
-function SettingsStack() {
+function StatsStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Settings"
+      initialRouteName="Stats"
       screenOptions={{
         headerStyle: {backgroundColor: '#42f44b'},
         headerTintColor: '#fff',
         headerTitleStyle: {fontWeight: 'bold'},
+        headerLeft: () => <ActionBarImage />,
       }}>
       <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{title: 'Setting Page'}}
+        name="Stats"
+        component={StaticticsScreen}
+        options={{title: 'Stats Page'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function FriendsStats() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Friends"
+      screenOptions={{
+        headerStyle: {backgroundColor: '#42f44b'},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
+        headerLeft: () => <ActionBarImage />,
+      }}>
+      <Stack.Screen
+        name="Friends"
+        component={FriendsScreen}
+        options={{title: 'Friends Page'}}
       />
       <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        options={{title: 'Details Page'}}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{title: 'Profile Page'}}
+        name="AddFriend"
+        component={AddFriendScreen}
+        options={{title: 'Add Friend Page'}}
       />
     </Stack.Navigator>
   );
@@ -95,10 +120,24 @@ function App() {
           }}
         />
         <Tab.Screen
-          name="SettingsStack"
-          component={SettingsStack}
+          name="StatsStack"
+          component={StatsStack}
           options={{
-            tabBarLabel: 'Settings',
+            tabBarLabel: 'Stats',
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons
+                name="settings"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="FriendsStack"
+          component={FriendsStats}
+          options={{
+            tabBarLabel: 'Friends',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
                 name="settings"

@@ -22,7 +22,8 @@ const flexBoxes = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: constants.backgroundColor,
+    //backgroundColor: constants.backgroundColor,
+    backgroundColor: 'green',
   },
   midBox: {
     flex: 8,
@@ -30,7 +31,8 @@ const flexBoxes = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: constants.backgroundColor,
+    //backgroundColor: constants.backgroundColor,
+    backgroundColor: 'blue',
   },
   bottomBox: {
     flex: 1,

@@ -1,21 +1,19 @@
 import React, {Component} from 'react';
 
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import icon from '../Assets/bigoLogo.png';
 
 export default class ActionBarImage extends Component {
   render() {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', backgroundColor: 'black'}}>
         <Image
-          source={{
-            uri:
-              'https://raw.githubusercontent.com/AboutReact/sampleresource/master/logosmalltransparen.png',
-          }}
+          source={icon}
           style={{
-            width: 40,
-            height: 40,
-            borderRadius: 40 / 2,
+            width: 170,
+            height: 55,
             marginLeft: 15,
+            marginTop: 3,
           }}
         />
       </View>

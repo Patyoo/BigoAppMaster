@@ -17,13 +17,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from './Components/HomeScreen';
+import HomeScreen from './Screens/HomeScreen';
 
-import LoginScreen from './Components/LoginScreen';
-import RegisterScreen from './Components/RegisterScreen';
-import StaticticsScreen from './Components/StatisticsScreen';
-import FriendsScreen from './Components/FriendsScreen';
-import AddFriendScreen from './Components/AddFriendScreen';
+import LoginScreen from './Screens/LoginScreen';
+import RegisterScreen from './Screens/RegisterScreen';
+import StaticticsScreen from './Screens/StatisticsScreen';
+import FriendsScreen from './Screens/FriendsScreen';
+import AddFriendScreen from './Screens/AddFriendScreen';
 import ActionBarImage from './Components/ImageHeader';
 
 const Stack = createStackNavigator();
@@ -34,25 +34,25 @@ function HomeStack() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerStyle: {backgroundColor: '#42f44b'},
+        headerStyle: {backgroundColor: 'black'},
         headerTintColor: '#fff',
         headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft: () => <ActionBarImage />,
+        header: () => <ActionBarImage />,
       }}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{title: 'Home Page'}}
+        options={{header: () => <ActionBarImage />}}
       />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{title: 'Login Page'}}
+        options={{header: () => <ActionBarImage />}}
       />
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
-        options={{title: 'Register Page'}}
+        options={{header: () => <ActionBarImage />}}
       />
     </Stack.Navigator>
   );
@@ -63,15 +63,15 @@ function StatsStack() {
     <Stack.Navigator
       initialRouteName="Stats"
       screenOptions={{
-        headerStyle: {backgroundColor: '#42f44b'},
+        headerStyle: {backgroundColor: 'black'},
         headerTintColor: '#fff',
         headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft: () => <ActionBarImage />,
+        header: () => <ActionBarImage />,
       }}>
       <Stack.Screen
         name="Stats"
         component={StaticticsScreen}
-        options={{title: 'Stats Page'}}
+        options={{header: () => <ActionBarImage />}}
       />
     </Stack.Navigator>
   );
@@ -82,20 +82,20 @@ function FriendsStats() {
     <Stack.Navigator
       initialRouteName="Friends"
       screenOptions={{
-        headerStyle: {backgroundColor: '#42f44b'},
+        headerStyle: {backgroundColor: 'black'},
         headerTintColor: '#fff',
         headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft: () => <ActionBarImage />,
+        header: () => <ActionBarImage />,
       }}>
       <Stack.Screen
         name="Friends"
         component={FriendsScreen}
-        options={{title: 'Friends Page'}}
+        options={{header: () => <ActionBarImage />}}
       />
       <Stack.Screen
         name="AddFriend"
         component={AddFriendScreen}
-        options={{title: 'Add Friend Page'}}
+        options={{header: () => <ActionBarImage />}}
       />
     </Stack.Navigator>
   );
@@ -107,7 +107,10 @@ function App() {
       <Tab.Navigator
         initialRouteName="Feed"
         tabBarOptions={{
-          activeTintColor: '#42f44b',
+          activeTintColor: 'black',
+          inactiveTintColor: 'white',
+          activeBackgroundColor: 'white',
+          inactiveBackgroundColor: 'black',
         }}>
         <Tab.Screen
           name="HomeStack"
@@ -126,7 +129,7 @@ function App() {
             tabBarLabel: 'Stats',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="settings"
+                name="chart-bar"
                 color={color}
                 size={size}
               />
@@ -140,7 +143,7 @@ function App() {
             tabBarLabel: 'Friends',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="settings"
+                name="account-multiple"
                 color={color}
                 size={size}
               />

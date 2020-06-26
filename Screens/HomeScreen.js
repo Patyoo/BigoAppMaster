@@ -1,24 +1,30 @@
 import * as React from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-} from 'react-native';
+import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import {flexBoxes, buttons, texts, inputs} from '../Assets/componentStyles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Picker} from '@react-native-community/picker';
+import LoginAlert from '../Components/LoginAlert';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    //this.props.navigation.navigate('Login');
-    //this.props.navigation.navigate('Register');
+    this.handleOnPress = this.handleOnPress.bind(this);
+    this.LoginAlert = new LoginAlert();
+  }
+  state = {
+    type: 'LM',
+    counter: 0,
+    loggedIn: false,
+  };
+  componentDidMount() {
+    if (this.state.loggedIn === false) {
+      this.LoginAlert.showAlert();
+      this.props.navigation.navigate('Login');
+    }
   }
 
-  state = {
-    language: 'LM',
+  handleOnPress = () => {
+    this.setState({counter: this.state.counter + 1});
   };
 
   render() {
@@ -32,23 +38,27 @@ export default class HomeScreen extends React.Component {
           </View>
         </View>
         <View style={flexBoxes.midBox}>
-          <TouchableOpacity style={styles.bigo}>
+          <TouchableOpacity style={styles.bigo} onPress={this.handleOnPress}>
             <MaterialCommunityIcons name="smoking" size={50} color={'white'} />
           </TouchableOpacity>
           <View style={styles.picker}>
             <Text style={styles.basicText}>Select your type of bigo</Text>
             <Picker
-              selectedValue={this.state.language}
+              selectedValue={this.state.type}
               style={styles.inputSelector}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({type: itemValue})
               }>
               <Picker.Item label="LM" value="LM" />
               <Picker.Item label="Loftky" value="Loftky" />
             </Picker>
           </View>
         </View>
-        <View style={flexBoxes.bottomBox} />
+        <View style={flexBoxes.bottomBox}>
+          <View style={styles.logOffBox}>
+            <Text style={styles.logOffText}>Today: {this.state.counter}</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -60,13 +70,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: 70,
     height: 70,
-    margin: 15,
     borderRadius: 40,
     borderWidth: 2,
     borderColor: 'white',
   },
   logOffBox: {
     alignSelf: 'flex-end',
+    margin: 15,
   },
   logOffText: {
     color: 'white',

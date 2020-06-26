@@ -1,13 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {flexBoxes, buttons, texts, inputs} from '../Assets/componentStyles';
 
 export default class StatisticsScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View style={flexBoxes.container}>
+        <View style={flexBoxes.topBox} />
+        <View style={flexBoxes.midBox} />
+        <View style={flexBoxes.bottomBox} />
       </View>
     );
   }

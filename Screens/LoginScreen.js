@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {flexBoxes, buttons, texts, inputs} from '../Assets/componentStyles';
+import LoginAlert from '../Components/LoginAlert';
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.LoginAlert = new LoginAlert();
   }
   state = {
     email: '',
     password: '',
+    signedIn: false,
   };
 
   handleEmail = text => {
@@ -26,6 +23,13 @@ export default class LoginScreen extends React.Component {
   login = (email, pass) => {
     alert('email: ' + email + ' password: ' + pass);
   };
+
+  componentWillUnmount() {
+    if (this.state.signedIn === false) {
+      this.LoginAlert.showAlert();
+      this.props.navigation.navigate('Login');
+    }
+  }
 
   render() {
     return (
@@ -53,7 +57,7 @@ export default class LoginScreen extends React.Component {
           <TouchableOpacity
             style={buttons.submitButton}
             onPress={() => this.login(this.state.email, this.state.password)}>
-            <Text style={texts.button}> Submit </Text>
+            <Text style={texts.button}> SignIn </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={buttons.submitButton}

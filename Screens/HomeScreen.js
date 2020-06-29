@@ -1,30 +1,66 @@
 import * as React from 'react';
-import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
+import {TouchableOpacity, StyleSheet, View, Text, Alert} from 'react-native';
 import {flexBoxes, buttons, texts, inputs} from '../Assets/componentStyles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Picker} from '@react-native-community/picker';
 import LoginAlert from '../Components/LoginAlert';
+import AuthService from '../Services/Auth';
+import BigoService from '../Services/Bigo';
+import {AsyncStorage} from 'react-native';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.handleOnPress = this.handleOnPress.bind(this);
     this.LoginAlert = new LoginAlert();
+    this.authService = new AuthService();
+    this.bigoService = new BigoService();
   }
+
   state = {
     type: 'LM',
     counter: 0,
-    loggedIn: false,
+    bigoHistory: [],
   };
   componentDidMount() {
-    if (this.state.loggedIn === false) {
-      this.LoginAlert.showAlert();
-      this.props.navigation.navigate('Login');
-    }
+    this.authService.isValidUser().then(res => {
+      if (!res) {
+        this.LoginAlert.showAlert();
+        this.props.navigation.navigate('Login');
+      } else {
+        this.onFetch();
+      }
+    });
   }
+
+  onFetch = () => {
+    this.bigoService.getBigoCountUser().then(res => {
+      this.setState({
+        counter: res.length,
+        bigoHistory: res.map(item => {
+          return {
+            brand: item.brand,
+            created: new Date(item.created).toLocaleTimeString('en-US'),
+          };
+        }),
+      });
+      console.log(this.state.bigoHistory);
+    });
+  };
 
   handleOnPress = () => {
     this.setState({counter: this.state.counter + 1});
+  };
+
+  logout = () => {
+    this.authService.logout().then(res => {
+      if (res) {
+        AsyncStorage.removeItem('token');
+        this.props.navigation.navigate('Login');
+      } else {
+        Alert.alert('Something went wrong');
+      }
+    });
   };
 
   render() {
@@ -32,7 +68,7 @@ export default class HomeScreen extends React.Component {
       <View style={flexBoxes.container}>
         <View style={flexBoxes.topBox}>
           <View style={styles.logOffBox}>
-            <TouchableOpacity style={styles.logOff}>
+            <TouchableOpacity style={styles.logOff} onPress={this.logout}>
               <Text style={styles.logOffText}> Logout </Text>
             </TouchableOpacity>
           </View>
@@ -56,7 +92,7 @@ export default class HomeScreen extends React.Component {
         </View>
         <View style={flexBoxes.bottomBox}>
           <View style={styles.logOffBox}>
-            <Text style={styles.logOffText}>Today: {this.state.counter}</Text>
+            <Text style={styles.logOffText}>Total: {this.state.counter}</Text>
           </View>
         </View>
       </View>

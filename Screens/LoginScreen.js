@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import {flexBoxes, buttons, texts, inputs} from '../Assets/componentStyles';
 import LoginAlert from '../Components/LoginAlert';
+import AuthService from '../Services/Auth';
+import {AsyncStorage} from 'react-native';
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.LoginAlert = new LoginAlert();
+    this.authService = new AuthService();
   }
   state = {
     email: '',
     password: '',
-    signedIn: false,
   };
 
   handleEmail = text => {
@@ -21,14 +23,25 @@ export default class LoginScreen extends React.Component {
     this.setState({password: text});
   };
   login = (email, pass) => {
-    alert('email: ' + email + ' password: ' + pass);
+    this.authService.login(email, pass).then(res => {
+      if (res) {
+        AsyncStorage.setItem('token', res.token).done();
+        AsyncStorage.setItem('owner', res.owner).done();
+        AsyncStorage.setItem('name', res.name).done();
+        this.props.navigation.navigate('Home');
+      } else {
+        Alert.alert('Invalid username or password');
+      }
+    });
   };
 
   componentWillUnmount() {
-    if (this.state.signedIn === false) {
-      this.LoginAlert.showAlert();
-      this.props.navigation.navigate('Login');
-    }
+    this.authService.isValidUser().then(res => {
+      if (!res) {
+        this.LoginAlert.showAlert();
+        this.props.navigation.navigate('Login');
+      }
+    });
   }
 
   render() {

@@ -5,8 +5,10 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {flexBoxes, buttons, texts, inputs} from '../Assets/componentStyles';
+import AuthService from '../Services/Auth';
 
 export default class RegisterScreen extends React.Component {
   constructor(props) {
@@ -27,12 +29,15 @@ export default class RegisterScreen extends React.Component {
   handleConfirmPassword = text => {
     this.setState({confirmPassword: text});
   };
-  registerUser = (name, email, pass, confirmPass) => {
-    console.log(
-      `name: ${name} email: ${email} password: ${pass} confirmPassword: ${confirmPass}`,
-    );
+  register = (email, pass, name) => {
+    this.authService.register(name, email, pass).then(res => {
+      if (res) {
+        this.props.navigation.navigate('Login');
+      } else {
+        Alert.alert('Invalid registration');
+      }
+    });
   };
-
   render() {
     return (
       <View style={flexBoxes.container}>
@@ -69,9 +74,9 @@ export default class RegisterScreen extends React.Component {
             style={buttons.submitButton}
             onPress={() =>
               this.registerUser(
-                this.state.name,
                 this.state.email,
                 this.state.password,
+                this.state.name,
               )
             }>
             <Text style={texts.button}> Register </Text>

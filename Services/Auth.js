@@ -86,7 +86,7 @@ export default class AuthService {
         },
       );
       let responseJson = await response.json();
-      console.log(responseJson);
+      //console.log(responseJson);
       console.log(responseJson['user-token']);
       if (responseJson.created) {
         return true;
@@ -100,6 +100,9 @@ export default class AuthService {
 
   async isValidUser() {
     try {
+      if ((await AsyncStorage.getItem('token')) == null) {
+        return false;
+      }
       let response = await fetch(
         `${AuthService.HTTPS}${
           AuthService.APIKEY

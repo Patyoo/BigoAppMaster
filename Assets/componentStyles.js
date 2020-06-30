@@ -52,6 +52,30 @@ const buttons = StyleSheet.create({
     height: constants.inputFieldHeight,
     width: constants.inputFieldWidth,
   },
+  roundButton: {
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    width: 70,
+    height: 70,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: 'white',
+  },
+  roundButtonBig: {
+    borderWidth: 3,
+    borderColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    backgroundColor: 'black',
+    borderRadius: 80,
+    margin: 30,
+  },
+  rightBox: {
+    alignSelf: 'flex-end',
+    margin: 15,
+  },
 });
 
 const texts = StyleSheet.create({
@@ -67,6 +91,11 @@ const texts = StyleSheet.create({
     width: constants.inputFieldWidth,
     fontSize: 20,
   },
+  basicText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 15,
+  },
 });
 
 const inputs = StyleSheet.create({
@@ -77,6 +106,21 @@ const inputs = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 35,
     color: constants.textColor,
+  },
+  inputSelector: {
+    height: 50,
+    width: 150,
+    color: 'white',
+  },
+  picker: {
+    width: 250,
+    height: 75,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    borderColor: 'white',
+    borderWidth: 3,
   },
 });
 

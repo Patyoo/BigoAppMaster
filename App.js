@@ -10,7 +10,6 @@
 import 'react-native-gesture-handler';
 
 import * as React from 'react';
-import {Button, View, Text, TouchableOpacity, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -18,7 +17,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeScreen from './Screens/HomeScreen';
-
+import SettingScreen from './Screens/SettingScreen';
 import LoginScreen from './Screens/LoginScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import StaticticsScreen from './Screens/StatisticsScreen';
@@ -42,16 +41,6 @@ function HomeStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{header: () => <ActionBarImage />}}
-      />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{header: () => <ActionBarImage />}}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
         options={{header: () => <ActionBarImage />}}
       />
     </Stack.Navigator>
@@ -100,12 +89,40 @@ function FriendsStats() {
     </Stack.Navigator>
   );
 }
+function SettingsStats() {
+  return (
+    <Stack.Navigator
+      initialRouteName="SettingScreen"
+      screenOptions={{
+        headerStyle: {backgroundColor: 'black'},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
+        header: () => <ActionBarImage />,
+      }}>
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{header: () => <ActionBarImage />}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{header: () => <ActionBarImage />}}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{header: () => <ActionBarImage />}}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Feed"
+        initialRouteName="SettingsStats"
         tabBarOptions={{
           activeTintColor: 'black',
           inactiveTintColor: 'white',
@@ -144,6 +161,20 @@ function App() {
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
                 name="account-multiple"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="SettingsStats"
+          component={SettingsStats}
+          options={{
+            tabBarLabel: 'Account',
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons
+                name="account"
                 color={color}
                 size={size}
               />

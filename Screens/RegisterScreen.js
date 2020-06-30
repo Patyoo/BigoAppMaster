@@ -13,6 +13,7 @@ import AuthService from '../Services/Auth';
 export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.authService = new AuthService();
   }
   state = {
     name: '',
@@ -20,14 +21,14 @@ export default class RegisterScreen extends React.Component {
     password: '',
   };
 
-  handleEmail = text => {
-    this.setState({email: text});
+  handleName = text => {
+    this.setState({name: text});
   };
   handlePassword = text => {
     this.setState({password: text});
   };
-  handleConfirmPassword = text => {
-    this.setState({confirmPassword: text});
+  handleEmail = text => {
+    this.setState({email: text});
   };
   register = (email, pass, name) => {
     this.authService.register(name, email, pass).then(res => {
@@ -50,7 +51,7 @@ export default class RegisterScreen extends React.Component {
             placeholder="Name"
             placeholderTextColor="white"
             autoCapitalize="none"
-            onChangeText={this.handleEmail}
+            onChangeText={this.handleName}
           />
           <Text style={texts.label}>Email:</Text>
           <TextInput
@@ -59,7 +60,7 @@ export default class RegisterScreen extends React.Component {
             placeholder="Email"
             placeholderTextColor="white"
             autoCapitalize="none"
-            onChangeText={this.handlePassword}
+            onChangeText={this.handleEmail}
           />
           <Text style={texts.label}>Password:</Text>
           <TextInput
@@ -73,7 +74,7 @@ export default class RegisterScreen extends React.Component {
           <TouchableOpacity
             style={buttons.submitButton}
             onPress={() =>
-              this.registerUser(
+              this.register(
                 this.state.email,
                 this.state.password,
                 this.state.name,

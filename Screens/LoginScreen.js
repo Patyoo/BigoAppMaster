@@ -28,7 +28,11 @@ export default class LoginScreen extends React.Component {
         AsyncStorage.setItem('token', res.token).done();
         AsyncStorage.setItem('owner', res.owner).done();
         AsyncStorage.setItem('name', res.name).done();
-        this.props.navigation.navigate('Home');
+        this.setState({
+          email: '',
+          password: '',
+        });
+        this.props.navigation.navigate('HomeStack', {screen: 'Home'});
       } else {
         Alert.alert('Invalid username or password');
       }
